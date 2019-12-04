@@ -1,0 +1,65 @@
+upstream attribute-matcher {
+{{ range service "attribute-matcher" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
+upstream superset-service {
+{{ range service "superset-service" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
+upstream notebooks-service {
+{{ range service "notebooks-service" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
+upstream libpoc {
+{{ range service "libpoc" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
+upstream minio {
+{{ range service "minio" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
+server {
+   listen 80;
+   server_name am.zagoruiko.org.ua am.local;
+
+   location / {
+      proxy_pass http://attribute-matcher;
+   }
+}
+
+server {
+   listen 80;
+   server_name superset.zagoruiko.org.ua superset.local;
+
+   location / {
+      proxy_pass http://superset-service;
+   }
+}
+
+server {
+   listen 80;
+   server_name notebooks.zagoruiko.org.ua notebooks.local;
+
+   location / {
+      proxy_pass http://notebooks-service;
+   }
+}
+
+server {
+   listen 80;
+   server_name minio.zagoruiko.org.ua minio.local;
+
+   location / {
+      proxy_pass http://minio;
+   }
+}
