@@ -20,7 +20,7 @@ job "nginx-job" {
       driver = "docker"
       
       config {
-        image = "127.0.0.1:9999/docker/consul-template-nginx:1.0.0"
+        image = "127.0.0.1:9999/docker/consul-template-nginx:1.0.1"
 
         port_map {
           web = 80
