@@ -15,7 +15,10 @@ COPY load-balancer.conf.ctmpl /etc/nginx/conf.d.template/load-balancer.conf.ctmp
 
 COPY consul-template-config.hcl consul-template-config.hcl
 
+COPY reload-nginx.sh /usr/sbin/reload-nginx
+RUN chmod a+x /usr/sbin/reload-nginx
+
 RUN mkdir -p /run/nginx
 
-CMD nginx && ./consul-template -config=consul-template-config.hcl
+CMD nginx; ./consul-template -config=consul-template-config.hcl
 #CMD bash
