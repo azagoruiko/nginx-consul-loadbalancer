@@ -10,14 +10,15 @@ upstream notebooks-service {
 {{ end }}
 }
 
-upstream libpoc {
-{{ range service "libpoc" }}
+
+upstream minio {
+{{ range service "minio" }}
   server {{ .Address }}:{{ .Port }};
 {{ end }}
 }
 
-upstream minio {
-{{ range service "minio" }}
+upstream nextcloud.zagoruiko.org.ua {
+{{ range service "nextcloud-service" }}
   server {{ .Address }}:{{ .Port }};
 {{ end }}
 }
@@ -28,15 +29,6 @@ server {
 
    location / {
       proxy_pass http://superset-service;
-   }
-}
-
-server {
-   listen 80;
-   server_name libpoc.zagoruiko.org.ua libpoc.local;
-
-   location / {
-      proxy_pass http://libpoc;
    }
 }
 
@@ -76,5 +68,17 @@ server {
 
    location / {
       proxy_pass http://minio;
+   }
+}
+
+server {
+   listen 80;
+   server_name nextcloud.zagoruiko.org.ua nextcloud.local;
+
+   location / {
+      proxy_pass http://nextcloud.zagoruiko.org.ua;
+      proxy_read_timeout 186400;
+      client_max_body_size 4024m;
+      proxy_buffering off;
    }
 }
