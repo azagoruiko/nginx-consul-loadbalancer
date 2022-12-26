@@ -20,7 +20,7 @@ job "nginx-job" {
       driver = "docker"
       
       config {
-        image = "127.0.0.1:9999/docker/consul-template-nginx:1.0.8"
+        image = "127.0.0.1:9999/docker/consul-template-nginx:1.1.1"
 
         port_map {
           web = 80
@@ -29,7 +29,7 @@ job "nginx-job" {
 
       resources {
         cpu    = 400
-        memory = 712
+        memory = 512
 
         network {
           mbits = 20

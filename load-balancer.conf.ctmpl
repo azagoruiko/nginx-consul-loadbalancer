@@ -17,12 +17,6 @@ upstream minio {
 {{ end }}
 }
 
-upstream nextcloud.zagoruiko.org.ua {
-{{ range service "nextcloud-service" }}
-  server {{ .Address }}:{{ .Port }};
-{{ end }}
-}
-
 server {
    listen 80;
    server_name superset.zagoruiko.org.ua superset.local;
@@ -68,17 +62,5 @@ server {
 
    location / {
       proxy_pass http://minio;
-   }
-}
-
-server {
-   listen 80;
-   server_name nextcloud.zagoruiko.org.ua nextcloud.local;
-
-   location / {
-      proxy_pass http://nextcloud.zagoruiko.org.ua;
-      proxy_read_timeout 186400;
-      client_max_body_size 4024m;
-      proxy_buffering off;
    }
 }
