@@ -28,7 +28,7 @@ job "nginx-job" {
       }
 
       resources {
-        cpu    = 400
+        cpu    = 1200
         memory = 512
 
         network {
