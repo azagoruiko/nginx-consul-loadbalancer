@@ -1,5 +1,5 @@
 consul {
-  address = "192.168.0.21:8500"
+  address = "10.8.0.1:8500"
   retry {
     enabled = true
     attempts = 12

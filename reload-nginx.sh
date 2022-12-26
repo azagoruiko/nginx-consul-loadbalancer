@@ -7,5 +7,4 @@ if [ $? -ne 0 ]; then
 else
     echo "reload success"
 fi
-
 exit 0

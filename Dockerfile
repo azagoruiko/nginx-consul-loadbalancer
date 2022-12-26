@@ -8,7 +8,7 @@ RUN unzip consul-template_0.23.0_linux_amd64.zip
 
 RUN apk add bash
 
-ENV CONSUL_HTTP_ADDR="http://192.168.0.21:8500"
+ENV CONSUL_HTTP_ADDR="http://10.8.0.1:8500"
 
 RUN mkdir -p /etc/nginx/conf.d.template/
 COPY load-balancer.conf.ctmpl /etc/nginx/conf.d.template/load-balancer.conf.ctmpl
