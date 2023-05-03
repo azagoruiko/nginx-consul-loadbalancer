@@ -17,6 +17,12 @@ upstream minio {
 {{ end }}
 }
 
+upstream docker {
+{{ range service "docker-registry" }}
+  server {{ .Address }}:{{ .Port }};
+{{ end }}
+}
+
 server {
    listen 80;
    server_name superset.zagoruiko.org.ua superset.local;
@@ -62,5 +68,14 @@ server {
 
    location / {
       proxy_pass http://minio;
+   }
+}
+
+server {
+   listen 80;
+   server_name docker.zagoruiko.org.ua docker.local;
+
+   location / {
+      proxy_pass http://docker;
    }
 }
