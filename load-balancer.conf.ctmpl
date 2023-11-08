@@ -10,13 +10,6 @@ upstream notebooks-service {
 {{ end }}
 }
 
-
-upstream minio {
-{{ range service "minio" }}
-  server {{ .Address }}:{{ .Port }};
-{{ end }}
-}
-
 upstream docker {
 {{ range service "docker-registry" }}
   server {{ .Address }}:{{ .Port }};
@@ -59,15 +52,6 @@ server {
         proxy_set_header Upgrade "websocket";
         proxy_set_header Connection "Upgrade";
         proxy_read_timeout 86400;
-   }
-}
-
-server {
-   listen 80;
-   server_name minio.zagoruiko.org.ua minio.local;
-
-   location / {
-      proxy_pass http://minio;
    }
 }
 

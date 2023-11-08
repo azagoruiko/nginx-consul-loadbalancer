@@ -16,11 +16,19 @@ job "nginx-job" {
       mode     = "delay"
     }
 
+    network {
+      port "web" {
+        static = 80
+      }
+    }
+
     task "nginx-task" {
       driver = "docker"
       
       config {
-        image = "127.0.0.1:9999/docker/consul-template-nginx:1.1.1"
+        image = "10.8.0.5:5000/consul-template-nginx:1.1.1"
+
+        ports = [ "web" ]
 
         port_map {
           web = 80
@@ -30,13 +38,6 @@ job "nginx-job" {
       resources {
         cpu    = 1200
         memory = 512
-
-        network {
-          mbits = 20
-          port  "web" {
-            static = 80
-          }
-        }
       }
 
       service {
